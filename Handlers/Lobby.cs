@@ -31,12 +31,14 @@ namespace RussianRoulette.Handlers
         {
             PlayerEvents.DryfiringWeapon += RouletteRound.Instance.TriggerPulled;
             PlayerEvents.ChangingItem += Abilities.Instance.UsingAbility;
+            PlayerEvents.SpawnedRagdoll += RouletteRound.Instance.AddRagdollToList;
         }
 
         public void UnregisterEvents()
         {
             PlayerEvents.DryfiringWeapon -= RouletteRound.Instance.TriggerPulled;
             PlayerEvents.ChangingItem -= Abilities.Instance.UsingAbility;
+            PlayerEvents.SpawnedRagdoll -= RouletteRound.Instance.AddRagdollToList;
         }
 
         public void StartNewLobby()

@@ -25,7 +25,7 @@ namespace RussianRoulette.Handlers
         public static Round Instance = new Round();
 
         private Message _broadcastHandler = new Message();
-        private List<Item> items = new List<Item>() { };
+        private List<Ragdoll> _ragdolls = new List<Ragdoll>();
         private Handlers.Spawn _spawn;
         private List<Player> _playerOrder;
         private int _currentPlayer = 0;
@@ -213,9 +213,24 @@ namespace RussianRoulette.Handlers
             Abilities.Instance.ProtectedPlayer = null;
             yield return Timing.WaitForSeconds(5);
 
+            RemoveAllCorpses();
             Lobby.Instance.StartNewLobby();
         }
 
+        public void AddRagdollToList(SpawnedRagdollEventArgs ev)
+        {
+            _ragdolls.Add(ev.Ragdoll);
+        }
+
+        private void RemoveAllCorpses()
+        {
+            foreach (Ragdoll rd in _ragdolls)
+            {
+                Object.Destroy(rd.GameObject);
+            }
+
+            _ragdolls.Clear();
+        }
 
         private void SendGlobalMessage(string content, ushort duration)
         {
