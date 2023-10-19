@@ -81,39 +81,11 @@ namespace RussianRoulette.Handlers
 
             if (ev.Firearm.Aiming)
             {
-                RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(ev.Player.GameObject.transform.position, ev.Player.GameObject.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, 8))
-                {
-                    if (hasBullet)
-                    {
-                        Player target = hit.collider.gameObject.GetComponent<Player>();
-                        EliminatePlayer(target);
-                    }
-                    else
-                    {
-                        EliminatePlayer(_playerOrder[_currentPlayer]);
-                    }
-                }
-                else
-                {
-                    if (hasBullet)
-                    {
-                        SendGlobalMessage("The bullet was wasted. Reloading a new one.", 3);
-                    }
-                    else
-                    {
-                        EliminatePlayer(_playerOrder[_currentPlayer]);
-                    }
-                }
+                ShootToPlayer(ev.Player, hasBullet);
             }
             else
             {
-                Log.Info("Tried shot him self. Player: " + _playerOrder.Count);
-                if (hasBullet)
-                    EliminatePlayer(_playerOrder[_currentPlayer]);
-                else
-                    SendGlobalMessage("There was no bullet.", 3);
+                ShootSelf(hasBullet);
             }
 
             if (hasBullet)
@@ -123,6 +95,44 @@ namespace RussianRoulette.Handlers
 
 
             NextPlayer();
+        }
+
+        private void ShootToPlayer(Player player, bool hasBullet = false)
+        {
+            if (hasBullet) 
+            {
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(player.CameraTransform.position, player.CameraTransform.forward, out hit, Mathf.Infinity))
+                {
+                    Log.Info("The player shot something.");
+                    Player target = Player.Get(hit.transform.GetComponentInParent<ReferenceHub>());
+                    if (target != null) 
+                    {
+                        Log.Info("The player shot another player.");
+                        EliminatePlayer(target);
+                    }
+                    else
+                    {
+                        SendGlobalMessage("The bullet was wasted. Reloading a new one.", 3);
+                    }
+                }
+            }
+            else
+            {
+                EliminatePlayer(_playerOrder[_currentPlayer]);
+            }
+
+
+        }
+
+        private void ShootSelf(bool hasBullet = false)
+        {
+            Log.Info("Tried shot him self.");
+            if (hasBullet)
+                EliminatePlayer(_playerOrder[_currentPlayer]);
+            else
+                SendGlobalMessage("There was no bullet.", 3);
         }
 
         private void ReloadGun()
@@ -180,6 +190,8 @@ namespace RussianRoulette.Handlers
             }
             else if (_playerOrder.Count == 1)
             {
+                RemoveWeaponFromPlayer(0);
+
                 Log.Info(_playerOrder[0].Nickname + " won this round! What a lucky guy.");
                 SendGlobalMessage(_playerOrder[0].Nickname + " won this round! What a lucky guy.", 5);
 
@@ -198,6 +210,7 @@ namespace RussianRoulette.Handlers
 
         IEnumerator<float> EndRound()
         {
+            Abilities.Instance.ProtectedPlayer = null;
             yield return Timing.WaitForSeconds(5);
 
             Lobby.Instance.StartNewLobby();
