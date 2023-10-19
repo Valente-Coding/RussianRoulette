@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ADBBC285-CB68-4D70-A2E6-0012D5D80532}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RussianRoulette</RootNamespace>
+    <AssemblyName>RussianRoulette</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\Dependencies\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\Dependencies\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandSystem.Core">
+      <HintPath>..\Dependencies\CommandSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.API">
+      <HintPath>..\Dependencies\Exiled.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CreditTags">
+      <HintPath>..\Dependencies\Exiled.CreditTags.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CustomItems">
+      <HintPath>..\Dependencies\Exiled.CustomItems.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.CustomRoles">
+      <HintPath>C:\Users\gonca\Downloads\Exiled\EXILED\Plugins\Exiled.CustomRoles.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Events">
+      <HintPath>C:\Users\gonca\Downloads\Exiled\EXILED\Plugins\Exiled.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Loader">
+      <HintPath>C:\Users\gonca\Downloads\Exiled\SCP Secret Laboratory\PluginAPI\plugins\global\Exiled.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="Exiled.Updater">
+      <HintPath>..\Dependencies\Exiled.Updater.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror">
+      <HintPath>..\Dependencies\Mirror.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>..\Dependencies\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="NorthwoodLib">
+      <HintPath>..\Dependencies\NorthwoodLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginAPI">
+      <HintPath>..\Dependencies\PluginAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\Dependencies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>..\Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>..\Dependencies\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configs\Config.cs" />
+    <Compile Include="Handlers\Abilities.cs" />
+    <Compile Include="Handlers\Lobby.cs" />
+    <Compile Include="Handlers\Round.cs" />
+    <Compile Include="Handlers\Spawn.cs" />
+    <Compile Include="RussianRoulette.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
