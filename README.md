@@ -38,7 +38,7 @@ These abilities provide players with an advantage in the game. They can be activ
 
 This item grants the player protection, preventing them from being killed by the bullet.
 
-![Image]([https://hub.scpslgame.com/images/thumb/0/0d/AdrenalineIcon.png/200px-AdrenalineIcon.png](https://i.imgur.com/u3YKWej.png))
+![Image](https://i.imgur.com/u3YKWej.png)
 
 
 ### Coin
