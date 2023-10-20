@@ -13,14 +13,22 @@ namespace RussianRoulette.Handlers
     class Spawn
     {
         private List<Vector3> _spawnPoints = new List<Vector3>() { 
-            new Vector3(-1.581f, 991.649f, -39.020f),//
-            new Vector3(2.344f, 991.656f, -42.773f),//
-            new Vector3(-1.402f, 991.649f, -46.514f),//
-            new Vector3(-5.625f, 991.656f, -42.787f),//
-            new Vector3(1f, 991.649f, -39.930f),
-            new Vector3(1.438f, 991.649f, -45.395f),
-            new Vector3(-4.102f, 991.649f, -45.730f),
-            new Vector3(-4.316f, 991.649f, -40.023f),
+            new Vector3(1.199f, 991.649f, -38.363f), //
+            new Vector3(5.988f, 991.649f, -42.809f), //
+            new Vector3(1.148f, 991.649f, -47.469f), //
+            new Vector3(-4.123f, 991.649f, -42.807f),//
+            new Vector3(4.383f, 991.649f, -39.570f), ////
+            new Vector3(4.523f, 991.649f, -46.275f), ////
+            new Vector3(-2.675f, 991.649f, -46.427f),////
+            new Vector3(-2.572f, 991.649f, -39.364f),////
+            new Vector3(2.910f, 991.649f, -38.660f), //////
+            new Vector3(5.652f, 991.649f, -40.930f), //////
+            new Vector3(5.406f, 991.649f, -44.699f), //////
+            new Vector3(2.836f, 991.649f, -47.141f), //////
+            new Vector3(-0.899f, 991.649f, -47.189f),//////
+            new Vector3(-3.746f, 991.649f, -44.809f),//////
+            new Vector3(-3.858f, 991.649f, -40.862f),//////
+            new Vector3(-0.875f, 991.649f, -38.391f),//////
         }; 
 
         public List<Player> SpawnPlayers()
