@@ -38,20 +38,20 @@ These abilities provide players with an advantage in the game. They can be activ
 
 This item grants the player protection, preventing them from being killed by the bullet.
 
-![Image](https://hub.scpslgame.com/images/thumb/0/0d/AdrenalineIcon.png/200px-AdrenalineIcon.png)
+![Image](https://i.imgur.com/u3YKWej.png)
 
 
 ### Coin
 
 This item causes the revolver's barrel to spin, making it difficult to track the bullet inside.
 
-![Image](https://hub.scpslgame.com/images/thumb/1/12/CoinIcon.png/200px-CoinIcon.png)
+![Image](https://i.imgur.com/10A50cY.png)
 
 
 ### Keycard
 
 This allows the player to skip their turn, acting as a free pass.
 
-![Image](https://hub.scpslgame.com/images/thumb/6/65/KeycardCycleNew.png/120px-KeycardCycleNew.png)
+![Image](https://i.imgur.com/Rbez87W.png)
 
 
