@@ -20,11 +20,13 @@ namespace RussianRoulette.Handlers
 {
     class Lobby : MonoBehaviour
     {
+        public static Lobby Instance = new Lobby();
+        public Lobby() { }
+
         private Message _broadcastHandler = new Message();
         private List<Item> _defaultInv = new List<Item>();
 
-        public static Lobby Instance = new Lobby();
-        public Lobby() { }
+        public bool KeepGoing = false;
 
 
         public void RegisterEvents()
@@ -43,10 +45,13 @@ namespace RussianRoulette.Handlers
 
         public void StartNewLobby()
         {
-            ServerRound.IsLocked = true;
-            SendPlayersToLobby();
+            if (KeepGoing)
+            {
+                ServerRound.IsLocked = true;
+                SendPlayersToLobby();
 
-            Timing.RunCoroutine(WaitingToStart());
+                Timing.RunCoroutine(WaitingToStart());
+            }
         }
 
         IEnumerator<float> WaitingToStart()

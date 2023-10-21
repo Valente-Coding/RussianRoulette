@@ -98,6 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Stop.cs" />
+    <Compile Include="Commands\Start.cs" />
     <Compile Include="Configs\Config.cs" />
     <Compile Include="Handlers\Abilities.cs" />
     <Compile Include="Handlers\Lobby.cs" />
@@ -106,5 +108,6 @@
     <Compile Include="RussianRoulette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
