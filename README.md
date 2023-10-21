@@ -1,5 +1,5 @@
 
-# Russian Roulette SCP (EXILED PLUGIN) | Max Players: 16
+# Russian Roulette Event (EXILED PLUGIN) | Max Players: 16
 
 An SCP: Secret Laboratory funny gamemode to play with friends or random people that might be nice.
 
