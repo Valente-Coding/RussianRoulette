@@ -14,7 +14,7 @@ using Message = Exiled.API.Features.Broadcast;
 using ServerRound = PluginAPI.Core.Round;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 using RouletteRound = RussianRoulette.Handlers.Round;
-
+using Exiled.API.Enums;
 
 namespace RussianRoulette.Handlers
 {
@@ -34,6 +34,7 @@ namespace RussianRoulette.Handlers
             PlayerEvents.DryfiringWeapon += RouletteRound.Instance.TriggerPulled;
             PlayerEvents.ChangingItem += Abilities.Instance.UsingAbility;
             PlayerEvents.SpawnedRagdoll += RouletteRound.Instance.AddRagdollToList;
+            PlayerEvents.DroppingItem += RouletteRound.Instance.OnDroppingItem;
         }
 
         public void UnregisterEvents()
@@ -41,10 +42,12 @@ namespace RussianRoulette.Handlers
             PlayerEvents.DryfiringWeapon -= RouletteRound.Instance.TriggerPulled;
             PlayerEvents.ChangingItem -= Abilities.Instance.UsingAbility;
             PlayerEvents.SpawnedRagdoll -= RouletteRound.Instance.AddRagdollToList;
+            PlayerEvents.DroppingItem -= RouletteRound.Instance.OnDroppingItem;
         }
 
         public void StartNewLobby()
         {
+            Log.Info("Keepgoing: " + KeepGoing.ToString());
             if (KeepGoing)
             {
                 ServerRound.IsLocked = true;
@@ -57,6 +60,7 @@ namespace RussianRoulette.Handlers
         IEnumerator<float> WaitingToStart()
         {
             _broadcastHandler.Duration = 1;
+            yield return Timing.WaitForSeconds(5f);
 
             for (int i = 10; i > 0; i--) 
             {

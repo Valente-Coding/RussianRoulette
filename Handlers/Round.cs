@@ -45,9 +45,7 @@ namespace RussianRoulette.Handlers
 
             Abilities.Instance.GiveAbilitiesToPlayers(_playerOrder);
 
-            _bulletInBarrel = Random.Range(0, 6);
-            _currentBullet = 0;
-            Log.Info("BulletInBarrel: " + _bulletInBarrel);
+            ReloadWeapon();
 
             GiveWeaponToRandom();
         }
@@ -89,7 +87,7 @@ namespace RussianRoulette.Handlers
             }
 
             if (hasBullet)
-                ReloadGun();
+                ReloadWeapon();
             else
                 _currentBullet++;
 
@@ -135,15 +133,8 @@ namespace RussianRoulette.Handlers
                 SendGlobalMessage("There was no bullet.", 3);
         }
 
-        private void ReloadGun()
-        {
-            _bulletInBarrel = Random.Range(0, 6);
-            _currentBullet = 0;
-        }
-
         private void EliminatePlayer(Player player)
         {
-            Log.Info("There is " + _playerOrder.Count + " players alive.");
             foreach (Player p in _playerOrder)
             {
                 if (p == player)
@@ -157,7 +148,7 @@ namespace RussianRoulette.Handlers
                     }
                     else
                     {
-                        SendGlobalMessage("The player " + p.Nickname + " had shild activated.", 3);
+                        SendGlobalMessage("The player " + p.Nickname + " had shild activated. Reloading a new bullet.", 3);
                     }
               
                     break;
@@ -172,6 +163,14 @@ namespace RussianRoulette.Handlers
                 _playerOrder.Remove(player);
 
             Log.Info("There is " + _playerOrder.Count + " players alive.");
+        }
+
+        public void ReloadWeapon()
+        {
+            _currentBullet = 0;
+            _bulletInBarrel = Random.Range(0, 6);
+
+            Log.Info("BulletInBarrel: " + _bulletInBarrel);
         }
 
         public void NextPlayer()
@@ -196,7 +195,12 @@ namespace RussianRoulette.Handlers
                 SendGlobalMessage(_playerOrder[0].Nickname + " won this round! What a lucky guy.", 5);
 
                 //ServerRound.IsLocked = false;
-                Timing.RunCoroutine(EndRound());
+                //Timing.RunCoroutine(EndRound());
+
+                Abilities.Instance.ProtectedPlayer = null;
+
+                RemoveAllCorpses();
+                Lobby.Instance.StartNewLobby();
             }
             else
             {
@@ -204,7 +208,11 @@ namespace RussianRoulette.Handlers
                 SendGlobalMessage("Everybody died!", 5);
 
                 //ServerRound.IsLocked = false;
-                Timing.RunCoroutine(EndRound());
+                //Timing.RunCoroutine(EndRound());
+                Abilities.Instance.ProtectedPlayer = null;
+
+                RemoveAllCorpses();
+                Lobby.Instance.StartNewLobby();
             }
         }
 
@@ -230,6 +238,12 @@ namespace RussianRoulette.Handlers
             }
 
             _ragdolls.Clear();
+        }
+
+        public void OnDroppingItem(DroppingItemEventArgs ev)
+        {
+            if (Lobby.Instance.KeepGoing)
+                ev.IsAllowed = false;
         }
 
         private void SendGlobalMessage(string content, ushort duration)

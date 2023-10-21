@@ -75,8 +75,7 @@ namespace RussianRoulette.Handlers
 
         private void UseCoin(ChangingItemEventArgs ev) // Spins the barrel.
         {
-            RouletteRound.Instance.CurrentBullet = 0;
-            RouletteRound.Instance.BulletInBarrel = Random.Range(0, 6);
+            RouletteRound.Instance.ReloadWeapon();
 
             _broadcastHandler.Content = "Someone spinned the barrel! Everyone lost the bullet.";
             _broadcastHandler.Duration = 5;
