@@ -1,6 +1,7 @@
 ﻿using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
 using InventorySystem;
+using RussianRoulette.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +23,8 @@ namespace RussianRoulette.Handlers
         {
             ItemType.Adrenaline,
             ItemType.Coin,
-            ItemType.KeycardJanitor
+            ItemType.KeycardJanitor,
+            ItemType.Flashlight
         };
         private Player _protectedPlayer;
         private Message _broadcastHandler = new Message();
@@ -53,6 +55,9 @@ namespace RussianRoulette.Handlers
                 case ItemType.KeycardJanitor:
                     UseKeycard(ev);
                     break;
+                case ItemType.Flashlight:
+                    UseFlashlight(ev);
+                    break;
             }
         }
 
@@ -63,7 +68,7 @@ namespace RussianRoulette.Handlers
             {
                 _protectedPlayer = ev.Player;
 
-                _broadcastHandler.Content = "You are protected.";
+                _broadcastHandler.Content = SwitchLanguage.Instance.USE_ADRENALINE;
                 _broadcastHandler.Duration = 2;
 
                 ev.Player.ClearBroadcasts();
@@ -77,7 +82,7 @@ namespace RussianRoulette.Handlers
         {
             RouletteRound.Instance.ReloadWeapon();
 
-            _broadcastHandler.Content = "Someone spinned the barrel! Everyone lost the bullet.";
+            _broadcastHandler.Content = SwitchLanguage.Instance.USE_COIN;
             _broadcastHandler.Duration = 5;
 
             Map.ClearBroadcasts();
@@ -92,11 +97,25 @@ namespace RussianRoulette.Handlers
             {
                 RouletteRound.Instance.NextPlayer();
 
-                _broadcastHandler.Content = "Not today! Turn skipped.";
+                _broadcastHandler.Content = SwitchLanguage.Instance.USE_KEYCARD;
                 _broadcastHandler.Duration = 5;
 
                 Map.ClearBroadcasts();
                 Map.Broadcast(_broadcastHandler);
+
+                ev.Player.Inventory.ServerRemoveItem(ev.Item.Serial, null);
+            }
+        }
+
+        private void UseFlashlight(ChangingItemEventArgs ev) // Makes a player skip his turn
+        {
+            if (RouletteRound.Instance.PlayerOrder[RouletteRound.Instance.CurrentPlayer] == ev.Player)
+            {
+                _broadcastHandler.Content = SwitchLanguage.Instance.USE_FLASHLIGHT_1 + (RouletteRound.Instance.BulletInBarrel - RouletteRound.Instance.CurrentBullet) + SwitchLanguage.Instance.USE_FLASHLIGHT_2; // 5 - 2 = 3
+                _broadcastHandler.Duration = 5;
+
+                ev.Player.ClearBroadcasts();
+                ev.Player.Broadcast(_broadcastHandler);
 
                 ev.Player.Inventory.ServerRemoveItem(ev.Item.Serial, null);
             }

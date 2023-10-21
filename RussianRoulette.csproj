@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Lang.cs" />
     <Compile Include="Commands\Stop.cs" />
     <Compile Include="Commands\Start.cs" />
     <Compile Include="Configs\Config.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Handlers\Lobby.cs" />
     <Compile Include="Handlers\Round.cs" />
     <Compile Include="Handlers\Spawn.cs" />
+    <Compile Include="Localization\SwitchLanguage.cs" />
     <Compile Include="RussianRoulette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

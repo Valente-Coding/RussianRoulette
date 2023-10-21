@@ -8,6 +8,7 @@ using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using MEC;
 using PlayerRoles;
+using RussianRoulette.Localization;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +72,8 @@ namespace RussianRoulette.Handlers
 
         public void TriggerPulled(DryfiringWeaponEventArgs ev)
         {
+            RemoveWeaponFromPlayer(_currentPlayer);
+
             bool hasBullet = _currentBullet == _bulletInBarrel ? true : false;
             if (hasBullet)
                 Log.Info("Had Bullet in chamber.");
@@ -112,7 +115,7 @@ namespace RussianRoulette.Handlers
                     }
                     else
                     {
-                        SendGlobalMessage("The bullet was wasted. Reloading a new one.", 3);
+                        SendGlobalMessage(SwitchLanguage.Instance.BULLET_WASTED, 3);
                     }
                 }
             }
@@ -130,7 +133,7 @@ namespace RussianRoulette.Handlers
             if (hasBullet)
                 EliminatePlayer(_playerOrder[_currentPlayer]);
             else
-                SendGlobalMessage("There was no bullet.", 3);
+                SendGlobalMessage(SwitchLanguage.Instance.NO_BULLET, 3);
         }
 
         private void EliminatePlayer(Player player)
@@ -141,14 +144,14 @@ namespace RussianRoulette.Handlers
                 {
                     if (Abilities.Instance.ProtectedPlayer != player)
                     {
-                        SendGlobalMessage("The player " + p.Nickname + " died.", 3);
+                        SendGlobalMessage(SwitchLanguage.Instance.PLAYER_DEAD_1 + p.Nickname + SwitchLanguage.Instance.PLAYER_DEAD_2, 3);
                         p.ResetInventory(new List<Item>());
                         p.Kill(DamageType.Revolver);
                         p.Role.Set(RoleTypeId.Spectator);
                     }
                     else
                     {
-                        SendGlobalMessage("The player " + p.Nickname + " had shild activated. Reloading a new bullet.", 3);
+                        SendGlobalMessage(SwitchLanguage.Instance.PLAYER_SHIELD_1 + p.Nickname + SwitchLanguage.Instance.PLAYER_SHIELD_2, 3);
                     }
               
                     break;
@@ -160,7 +163,10 @@ namespace RussianRoulette.Handlers
                 Abilities.Instance.ProtectedPlayer = null;
             }
             else
+            {
                 _playerOrder.Remove(player);
+                _currentPlayer -= 1;
+            }
 
             Log.Info("There is " + _playerOrder.Count + " players alive.");
         }
@@ -179,8 +185,6 @@ namespace RussianRoulette.Handlers
             {
                 Log.Info("Next Player.");
 
-                RemoveWeaponFromPlayer(_currentPlayer);
-
                 _currentPlayer++;
                 if (_currentPlayer >= _playerOrder.Count)
                     _currentPlayer = 0;
@@ -192,7 +196,7 @@ namespace RussianRoulette.Handlers
                 RemoveWeaponFromPlayer(0);
 
                 Log.Info(_playerOrder[0].Nickname + " won this round! What a lucky guy.");
-                SendGlobalMessage(_playerOrder[0].Nickname + " won this round! What a lucky guy.", 5);
+                SendGlobalMessage(_playerOrder[0].Nickname + SwitchLanguage.Instance.PLAYER_WON, 5);
 
                 //ServerRound.IsLocked = false;
                 //Timing.RunCoroutine(EndRound());
@@ -205,7 +209,7 @@ namespace RussianRoulette.Handlers
             else
             {
                 Log.Info("The game ended with everyone dead.");
-                SendGlobalMessage("Everybody died!", 5);
+                SendGlobalMessage(SwitchLanguage.Instance.EVERYBODY_DIED, 5);
 
                 //ServerRound.IsLocked = false;
                 //Timing.RunCoroutine(EndRound());

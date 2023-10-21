@@ -1,26 +1,18 @@
 ﻿using CommandSystem;
-using Exiled.API.Features;
-using Exiled.CustomRoles.API;
-using InventorySystem.Items.Usables;
-using PlayerRoles;
-using RemoteAdmin;
+using RussianRoulette.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RussianRoulette.Handlers;
-
-using Message = Exiled.API.Features.Broadcast;
-using RussianRoulette.Localization;
 
 namespace RussianRoulette.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     [CommandHandler(typeof(GameConsoleCommandHandler))]
-    public class Start : ICommand
+    internal class Lang : ICommand
     {
-        public string Command { get; } = "rrstart";
+        public string Command { get; } = "rrlang";
 
         public string[] Aliases { get; } = { };
 
@@ -28,15 +20,19 @@ namespace RussianRoulette.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            Lobby.Instance.KeepGoing = true;
-
-            Message broadcast = new Message();
-            broadcast.Content = SwitchLanguage.Instance.START_COMMAND_MESSAGE;
-            broadcast.Duration = 5;
-
-            Map.Broadcast(broadcast);
-
             response = "Done";
+
+            if (arguments.Count == 0)
+            {
+                response = "rrlang <EN|ES|PT>";
+
+                return false;
+            }
+
+            SwitchLanguage.Instance.To(string.Join(" ", arguments.Skip(0)));
+
+
+
             return true;
         }
     }

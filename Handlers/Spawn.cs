@@ -1,5 +1,6 @@
 ﻿using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Items;
 using PlayerRoles;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace RussianRoulette.Handlers
             {
                 player.Role.Set(RoleTypeId.ClassD);
                 player.Position = _spawnPoints[i];
+                player.ResetInventory(new List<Item>());
 
                 ApplyEffectsToPlayer(player);
 

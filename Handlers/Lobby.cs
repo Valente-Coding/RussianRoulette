@@ -15,6 +15,7 @@ using ServerRound = PluginAPI.Core.Round;
 using PlayerEvents = Exiled.Events.Handlers.Player;
 using RouletteRound = RussianRoulette.Handlers.Round;
 using Exiled.API.Enums;
+using RussianRoulette.Localization;
 
 namespace RussianRoulette.Handlers
 {
@@ -64,7 +65,7 @@ namespace RussianRoulette.Handlers
 
             for (int i = 10; i > 0; i--) 
             {
-                _broadcastHandler.Content = "Next round is starting in " + i + " seconds";
+                _broadcastHandler.Content = SwitchLanguage.Instance.WAIT_TO_START_1 + i + SwitchLanguage.Instance.WAIT_TO_START_2;
                 Map.Broadcast(_broadcastHandler);
 
                 yield return Timing.WaitForSeconds(1f);
