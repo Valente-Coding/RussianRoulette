@@ -1,5 +1,5 @@
 
-# Russian Roulette SCP (EXILED PLUGIN) | Max Players: 8
+# Russian Roulette Event (EXILED PLUGIN) | Max Players: 16
 
 An SCP: Secret Laboratory funny gamemode to play with friends or random people that might be nice.
 
@@ -53,5 +53,14 @@ This item causes the revolver's barrel to spin, making it difficult to track the
 This allows the player to skip their turn, acting as a free pass.
 
 ![Image](https://i.imgur.com/Rbez87W.png)
+
+
+# Usage
+
+### Start the event (Command: rrstart)
+To start the Russian Roulette Event you need to write the command rrstart on the admin console or game console. The event will start in the next round.
+
+### Stop the event (Command: rrstop)
+To stop the Russian Roulette Event you need to write the command rrstop on the admin console or game console. The event will instantly stop and restart the round.
 
 
