@@ -40,6 +40,7 @@ namespace RussianRoulette.Handlers
 
         public void UsingAbility(ChangingItemEventArgs ev)
         {
+            if (!Lobby.Instance.KeepGoing) return;
             
             switch (ev.Item.Type)
             {
