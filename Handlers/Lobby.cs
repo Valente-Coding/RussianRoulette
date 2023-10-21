@@ -36,6 +36,7 @@ namespace RussianRoulette.Handlers
             PlayerEvents.ChangingItem += Abilities.Instance.UsingAbility;
             PlayerEvents.SpawnedRagdoll += RouletteRound.Instance.AddRagdollToList;
             PlayerEvents.DroppingItem += RouletteRound.Instance.OnDroppingItem;
+            PlayerEvents.Left += RouletteRound.Instance.RemovePlayerFromRound;
         }
 
         public void UnregisterEvents()
@@ -44,6 +45,7 @@ namespace RussianRoulette.Handlers
             PlayerEvents.ChangingItem -= Abilities.Instance.UsingAbility;
             PlayerEvents.SpawnedRagdoll -= RouletteRound.Instance.AddRagdollToList;
             PlayerEvents.DroppingItem -= RouletteRound.Instance.OnDroppingItem;
+            PlayerEvents.Left -= RouletteRound.Instance.RemovePlayerFromRound;
         }
 
         public void StartNewLobby()

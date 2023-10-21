@@ -171,6 +171,22 @@ namespace RussianRoulette.Handlers
             Log.Info("There is " + _playerOrder.Count + " players alive.");
         }
 
+        public void RemovePlayerFromRound(LeftEventArgs ev)
+        {
+            int playerIndex = _playerOrder.IndexOf(ev.Player);
+            _playerOrder.Remove(ev.Player);
+
+            if (_currentPlayer == playerIndex)
+            {
+                _currentPlayer -= 1;
+                NextPlayer();
+            }
+            else
+            {
+                _currentPlayer -= 1;
+            }
+        }
+
         public void ReloadWeapon()
         {
             _currentBullet = 0;
