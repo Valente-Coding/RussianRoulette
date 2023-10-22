@@ -173,15 +173,19 @@ namespace RussianRoulette.Handlers
 
         public void RemovePlayerFromRound(LeftEventArgs ev)
         {
-            int playerIndex = _playerOrder.IndexOf(ev.Player);
-            _playerOrder.Remove(ev.Player);
+            if (!Lobby.Instance.KeepGoing) return;
+            if (_playerOrder.Count == 0) return;
+
+            Player player = ev.Player;
+            int playerIndex = _playerOrder.IndexOf(player);
+            _playerOrder.RemoveAt(playerIndex);
 
             if (_currentPlayer == playerIndex)
             {
                 _currentPlayer -= 1;
                 NextPlayer();
             }
-            else
+            else if (_currentPlayer > playerIndex)
             {
                 _currentPlayer -= 1;
             }
