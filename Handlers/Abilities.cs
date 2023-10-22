@@ -43,7 +43,8 @@ namespace RussianRoulette.Handlers
         public void UsingAbility(ChangingItemEventArgs ev)
         {
             if (!Lobby.Instance.KeepGoing) return;
-            
+            if (ev.Item == null) return;
+
             switch (ev.Item.Type)
             {
                 case ItemType.Adrenaline:
@@ -95,6 +96,7 @@ namespace RussianRoulette.Handlers
         {
             if (RouletteRound.Instance.PlayerOrder[RouletteRound.Instance.CurrentPlayer] == ev.Player)
             {
+                RouletteRound.Instance.RemoveWeaponFromPlayer(RouletteRound.Instance.CurrentPlayer);
                 RouletteRound.Instance.NextPlayer();
 
                 _broadcastHandler.Content = SwitchLanguage.Instance.USE_KEYCARD;

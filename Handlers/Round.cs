@@ -64,7 +64,7 @@ namespace RussianRoulette.Handlers
             _playerOrder[pIndex].Inventory.ServerAddItem(ItemType.GunRevolver, 3);
         }
 
-        private void RemoveWeaponFromPlayer(int pIndex)
+        public void RemoveWeaponFromPlayer(int pIndex)
         {
             Log.Info("Removed Revolver.");
             _playerOrder[pIndex].Inventory.ServerRemoveItem(3, null);
@@ -72,8 +72,6 @@ namespace RussianRoulette.Handlers
 
         public void TriggerPulled(DryfiringWeaponEventArgs ev)
         {
-            RemoveWeaponFromPlayer(_currentPlayer);
-
             bool hasBullet = _currentBullet == _bulletInBarrel ? true : false;
             if (hasBullet)
                 Log.Info("Had Bullet in chamber.");
@@ -82,10 +80,12 @@ namespace RussianRoulette.Handlers
 
             if (ev.Firearm.Aiming)
             {
+                RemoveWeaponFromPlayer(_currentPlayer);
                 ShootToPlayer(ev.Player, hasBullet);
             }
             else
             {
+                RemoveWeaponFromPlayer(_currentPlayer);
                 ShootSelf(hasBullet);
             }
 
